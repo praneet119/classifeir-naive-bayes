@@ -8,7 +8,7 @@ def naivebayes() :
 	path = ['Bakery&Sweets/','Snacks/','Meats/','Organics/','Other/','Drinks/','Restaurants/']
 	path1 = ['Bakery&Sweets','Snacks','Meats','Organics','Other','Drinks','Restaurants']
 	#save_path=
-
+	ies="ies"
 	outputfile=open("dtapost4.txt","a")
 	vocab = [{},{},{},{},{},{},{}]
 	V =[]
@@ -28,7 +28,12 @@ def naivebayes() :
 				post_tags=post_tags.replace("-"," ")
 				tags = post_tags.split(', ')
 				for t in tags:
-					
+					if t.endswith("s"):
+						if t.endswith(ies):
+							t=t[:len(t)-len(ies)]
+							t=t+"y"
+						else:
+							t=t[0:len(t)-1]
 					if t not in alltags:
 						alltags.add(t)
 					if t not in vocab[p]:
@@ -62,6 +67,12 @@ def naivebayes() :
 		clean_tags=sys.argv[loop+1]
 		clean_tags=clean_tags.lower()
 		clean_tags=clean_tags.replace("-"," ")
+		if clean_tags.endswith("s"):
+						if clean_tags.endswith(ies):
+							clean_tags=clean_tags[:len(clean_tags)-len(ies)]
+							clean_tags=clean_tags+"y"
+						else:
+							clean_tags=clean_tags[0:len(clean_tags)-1]
 		test_tags.append(clean_tags)
 
 	sum1 = [0.0,0.0,0.0,0.0,0.0,0.0,0.0]
